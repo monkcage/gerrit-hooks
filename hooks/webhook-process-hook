@@ -13,20 +13,24 @@ config.read(config_path)
 
 url = config.get('webhook', 'url')
 
-def fire_webhook(payload):
+def fire_webhook(action, payload):
     headers = {'content-type': 'application/json'}
-    requests.post(url, data=json.dumps(payload), headers=headers)
+    requests.post(url + "/" + action, data=json.dumps(payload), headers=headers)
     
 def main():
     if len(sys.argv) < 2:
         exit()
         
     payload = {}
+    action = ""
     opts = sys.argv[1:]
     for i in range(int(len(opts)/2)):
+        if opts[i*2][2:] == "action":
+            action = opts[i*2+1]
+            continue
         payload.update({opts[i*2][2:]: opts[i*2+1]})
         
-    fire_webhook(payload)
+    fire_webhook(action, payload)
     
 if __name__ == '__main__':
     main()
