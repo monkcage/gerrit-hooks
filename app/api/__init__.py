@@ -1,7 +1,9 @@
 
-from fastapi import APIRouter
-from .gerrit import router as gerrit_router
+# from fastapi import APIRouter
+# from .gerrit import router as gerrit_router
 
-router = APIRouter()
+# router = APIRouter()
 
-router.include_router(gerrit_router)
+# router.include_router(gerrit_router)
+
+from .gerrit import router
